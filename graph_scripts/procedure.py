@@ -29,7 +29,11 @@ def load_sym_data(N, start):
     if not failed:
       syms[f] = []
       for i in range(index-1,index+N):
-        syms[f].append(the_file[i][1])
+        try:
+          syms[f].append(the_file[i][1])
+        except IndexError:
+          syms.pop(f, None)
+          break
   # syms should now hold the correct dates and the associated prices for all the
   # stock symbols 
   for sym in syms:
@@ -56,9 +60,9 @@ def Cij(sym_i, sym_j, N):
   return top/bottom
 
 if __name__ == "__main__":
-  N = 10
-  syms = load_sym_data(N, datetime.datetime(2015, 1, 5, 0, 0))
-  theta = 0.5
+  N = 400
+  syms = load_sym_data(N, datetime.datetime(2014, 1, 3, 0, 0))
+  theta = 0.2
   vertID = {}
   id = 0
   graph_path = '../graphs/'
