@@ -15,16 +15,21 @@ def load_sym_data(N, start):
     with open(os.path.join(data_path, f), 'r') as fp:
       the_file = pickle.load(fp)
     found_start = False
+    failed = False
     line = ''
     index = 0
-    while not found_start:
-      line = the_file[index]
-      if line[0] == start:
-        found_start = True
-      index += 1
-    syms[f] = []
-    for i in range(index-1,index+N):
-      syms[f].append(the_file[i][1])
+    while not found_start and not failed:
+      try:
+        line = the_file[index]
+        if line[0] == start:
+          found_start = True
+        index += 1
+      except IndexError:
+        failed = True
+    if not failed:
+      syms[f] = []
+      for i in range(index-1,index+N):
+        syms[f].append(the_file[i][1])
   # syms should now hold the correct dates and the associated prices for all the
   # stock symbols 
   for sym in syms:
