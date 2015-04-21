@@ -21,11 +21,12 @@ def load_sym_data(N, start):
     while not found_start and not failed:
       try:
         line = the_file[index]
-        if line[0] == start:
+        if line[0] >= start:
           found_start = True
         index += 1
       except IndexError:
         failed = True
+        print the_file[index-1], index-1
     if not failed:
       syms[f] = []
       for i in range(index-1,index+N):
@@ -60,8 +61,9 @@ def Cij(sym_i, sym_j, N):
   return top/bottom
 
 if __name__ == "__main__":
-  N = 400
-  syms = load_sym_data(N, datetime.datetime(2014, 1, 3, 0, 0))
+  N = 200
+  print 'N =', N, 'loading to memory'
+  syms = load_sym_data(N, datetime.datetime(2012, 1, 2, 0, 0))
   theta = 0.2
   vertID = {}
   id = 0
