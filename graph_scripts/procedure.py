@@ -36,7 +36,7 @@ def load_sym_data(N, start):
           syms.pop(f, None)
           break
   # syms should now hold the correct dates and the associated prices for all the
-  # stock symbols 
+  # stock symbols
   for sym in syms:
     print sym
     print syms[sym]
@@ -61,10 +61,10 @@ def Cij(sym_i, sym_j, N):
   return top/bottom
 
 if __name__ == "__main__":
-  N = 200
+  N = 500
   print 'N =', N, 'loading to memory'
   syms = load_sym_data(N, datetime.datetime(2012, 1, 2, 0, 0))
-  theta = 0.2
+  theta = 0.0
   vertID = {}
   id = 0
   graph_path = '../graphs/'
@@ -80,7 +80,9 @@ if __name__ == "__main__":
       for sym_j in syms:
         if sym_i != sym_j:
           #print 'Cij =', Cij(sym_i, sym_j, N), 'for i =', sym_i, 'and j =', sym_j
-          if Cij(sym_i, sym_j, N) < theta:
+          temp = Cij(sym_i, sym_j, N)
+          if temp < theta:
+            print temp
             # add an edge
             m += 1
             fp.write('%d %d\n' % (vertID[sym_i], vertID[sym_j]))
