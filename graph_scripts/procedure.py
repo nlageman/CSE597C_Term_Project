@@ -61,14 +61,14 @@ def Cij(sym_i, sym_j, N):
   return top/bottom
 
 if __name__ == "__main__":
-  N = 500
+  N = 250
   print 'N =', N, 'loading to memory'
   syms = load_sym_data(N, datetime.datetime(2012, 1, 2, 0, 0))
-  theta = 0.0
+  theta = -0.1
   vertID = {}
   id = 0
   graph_path = '../graphs/'
-  sample = 'dissim'
+  sample = 'dissim_first_250'
   with open(os.path.join(graph_path, sample+'_names.txt'), 'w+') as fp:
     for sym in syms:
       fp.write('%s\n' % sym)
